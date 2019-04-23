@@ -16,10 +16,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TODO 1
     DbHelper dbHelper;
+    //TODO 2
     List<Notes> notesList;
+    //TODO 3
     NoteAdapter adapter;
-
+    //TODO 4
     RecyclerView recNotes;
 
     @Override
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         showAllNotes();
     }
 
-    private void showAllNotes() {
+    public void showAllNotes() {
         notesList = dbHelper.getAllData();
 
         if (notesList != null) {

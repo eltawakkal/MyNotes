@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mynotes.AddNote;
+import com.example.mynotes.MainActivity;
 import com.example.mynotes.R;
 import com.example.mynotes.model.Notes;
 import com.example.mynotes.sqlite.DbHelper;
@@ -25,11 +26,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     public static final String ACTION_KEY = "action";
 
     List<Notes> notesList;
-    Context context;
+    MainActivity context;
 
     DbHelper dbHelper;
 
-    public NoteAdapter(List<Notes> notesList, Context context) {
+    public NoteAdapter(List<Notes> notesList, MainActivity context) {
         this.notesList = notesList;
         this.context = context;
 
@@ -95,6 +96,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                             context.startActivity(intentUpdate);
                         } else {
                             deleteUser(notesList.get(itemPosition).getId());
+                            context.showAllNotes();
                         }
                     }
                 });

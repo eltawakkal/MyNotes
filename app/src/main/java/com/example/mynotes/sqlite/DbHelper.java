@@ -3,6 +3,7 @@ package com.example.mynotes.sqlite;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mynotes.model.Notes;
@@ -63,11 +64,13 @@ public class DbHelper {
     }
 
     public void updateNote(String id, String title, String note) {
-        String sql = "UPDATE note SET title ='" + title +"', note = '" + note + "'";
+        database = sqliteHelper.getWritableDatabase();
+        String sql = "UPDATE note SET title ='" + title +"', note = '" + note + "' WHERE id ='" + id + "'";
         database.execSQL(sql);
     }
 
     public void deleteUser(String id) {
+        database = sqliteHelper.getWritableDatabase();
         String sql = "DELETE FROM note WHERE id = '"+ id +"'";
         database.execSQL(sql);
     }

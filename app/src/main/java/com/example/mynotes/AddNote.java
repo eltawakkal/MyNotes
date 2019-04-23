@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mynotes.adapter.NoteAdapter;
-import com.example.mynotes.model.Notes;
 import com.example.mynotes.sqlite.DbHelper;
 
 public class AddNote extends AppCompatActivity {
@@ -26,20 +25,33 @@ public class AddNote extends AppCompatActivity {
         setContentView(R.layout.activity_add_note);
 
         initView();
+        getDataForUpdate();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNote();
+                if (action == 0) {
+                    addNote();
+                } else {
+                    updateNote();
+                }
+
+                finish();
             }
         });
+
     }
 
-    void getDataFoUpdate() {
+    void getDataForUpdate() {
         id = getIntent().getStringExtra(NoteAdapter.ID_KEY);
         title = getIntent().getStringExtra(NoteAdapter.TITLE_KEY);
         note = getIntent().getStringExtra(NoteAdapter.NOTE_KEY);
         action = getIntent().getIntExtra(NoteAdapter.ACTION_KEY, 0);
+
+        if (action == 1) {
+            edtTitle.setText(title);
+            edtNote.setText(note);
+        }
     }
 
     private void initView() {
@@ -56,6 +68,10 @@ public class AddNote extends AppCompatActivity {
         String note = edtNote.getText().toString();
 
         helper.addNote(title, note);
+    }
+
+    void updateNote() {
+        helper.updateNote(id, edtTitle.getText().toString(), edtNote.getText().toString());
     }
 
 }
